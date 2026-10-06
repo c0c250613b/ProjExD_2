@@ -28,6 +28,7 @@ def check_bound(rect: pg.Rect) -> tuple[bool, bool]:
         tate = False
     return yoko, tate
 
+
 def gameover(screen: pg.Surface) -> None:  # gameover関数
     """
     引数:Surface
@@ -64,6 +65,7 @@ def init_bb_imgs() -> tuple[list[pg.Surface], list[int]]:  # 時間経過に応�
         bb_accs = [a for a in range(1, 11)]
     return bb_imgs, bb_accs
 
+
 def get_kk_imgs() -> dict[tuple[int, int], pg.Surface]:  # こうかとん回転辞書
     """
     引数: なし
@@ -82,6 +84,7 @@ def get_kk_imgs() -> dict[tuple[int, int], pg.Surface]:  # こうかとん回転
         (-5, -5): pg.transform.rotozoom(pg.image.load("fig/3.png"), -45, 1.0),
     }
     return kk_dict
+
 
 def main():
     pg.display.set_caption("逃げろ！こうかとん")
