@@ -47,6 +47,7 @@ def gameover(screen: pg.Surface) -> None:  # gameover関数
     pg.display.update()
     time.sleep(5)  # 5秒表示
 
+
 def init_bb_imgs() -> tuple[list[pg.Surface], list[int]]:  # 時間経過に応じて爆弾の大きさ、速さを変化させるための関数
     """
     引数: なし
