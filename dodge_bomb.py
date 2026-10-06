@@ -63,6 +63,25 @@ def init_bb_imgs() -> tuple[list[pg.Surface], list[int]]:  # 時間経過に応�
         bb_accs = [a for a in range(1, 11)]
     return bb_imgs, bb_accs
 
+def get_kk_imgs() -> dict[tuple[int, int], pg.Surface]:  # こうかとん回転辞書
+    """
+    引数: なし
+    戻り値: こうかとんの画像Surfaceの辞書
+    こうかとんの画像Surfaceを方向ごとに辞書に格納して返す
+    """
+    kk_dict = {
+        (0, 0): pg.transform.rotozoom(pg.image.load("fig/3.png"), 0, 1.0),
+        (+5, 0): pg.transform.rotozoom(pg.transform.flip(pg.image.load("fig/3.png"), True, False), 0, 1.0),
+        (-5, 0): pg.transform.rotozoom(pg.image.load("fig/3.png"), 0, 1.0),
+        (0, +5): pg.transform.rotozoom(pg.transform.flip(pg.image.load("fig/3.png"), True, False), -90, 1.0),
+        (0, -5): pg.transform.rotozoom(pg.transform.flip(pg.image.load("fig/3.png"), True, False), 90, 1.0),
+        (+5, +5): pg.transform.rotozoom(pg.transform.flip(pg.image.load("fig/3.png"), True, False), -45, 1.0),
+        (+5, -5): pg.transform.rotozoom(pg.transform.flip(pg.image.load("fig/3.png"), True, False), 45, 1.0),
+        (-5, +5): pg.transform.rotozoom(pg.image.load("fig/3.png"), 45, 1.0),
+        (-5, -5): pg.transform.rotozoom(pg.image.load("fig/3.png"), -45, 1.0),
+    }
+    return kk_dict
+
 def main():
     pg.display.set_caption("逃げろ！こうかとん")
     screen = pg.display.set_mode((WIDTH, HEIGHT))
@@ -79,6 +98,7 @@ def main():
     clock = pg.time.Clock()
     tmr = 0
     bb_imgs, bb_accs = init_bb_imgs()  # 爆弾画像Surfaceと加速度リストの初期化
+    kk_dict = get_kk_imgs()  # こうかとんの画像Surfaceの辞書
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: 
@@ -116,6 +136,8 @@ def main():
         bb_rct.move_ip(avx, avy)  # 爆弾加速度移動
         bb_rct.width = bb_img.get_rect().width  # 爆弾のRectの幅を更新
         bb_rct.height = bb_img.get_rect().height  # 爆弾のRectの高さを更新
+
+        kk_img = kk_dict[tuple(sum_mv)]  # こうかとんの画像Surfaceの更新
         yoko, tate = check_bound(bb_rct)
         if not yoko:  # yoko==false
             vx *= -1
