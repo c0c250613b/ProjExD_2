@@ -28,24 +28,24 @@ def check_bound(rect: pg.Rect) -> tuple[bool, bool]:
         tate = False
     return yoko, tate
 
-def gameover(screen: pg.Surface) -> None:
+def gameover(screen: pg.Surface) -> None:  # gameover関数
     """
     引数:Surface
     戻り値:なし
     こうかとんと爆弾が衝突した時にgameoverを表示する
     """
     end_img = pg.Surface((WIDTH, HEIGHT))
-    end_img.set_alpha(200)
+    end_img.set_alpha(200)  # 背景がブラックになるように透明度設定
     fonto = pg.font.Font(None, 80)
-    txt = fonto.render("Game Over", True, (255, 255, 255))
+    txt = fonto.render("Game Over", True, (255, 255, 255))  # 文字の表示
     end_img.blit(txt, [WIDTH/2 - 180, HEIGHT/2 - 50])
-    naki_img_left = pg.image.load("fig/8.png")
+    naki_img_left = pg.image.load("fig/8.png") 
     naki_img_right = pg.image.load("fig/8.png")
-    end_img.blit(naki_img_left, [300, 260])
+    end_img.blit(naki_img_left, [300, 260])  # こうかとん左右に配置
     end_img.blit(naki_img_right, [700, 260])
     screen.blit(end_img, [0, 0])
     pg.display.update()
-    time.sleep(5)
+    time.sleep(5)  # 5秒表示
 
 
 
