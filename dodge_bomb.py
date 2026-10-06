@@ -47,7 +47,11 @@ def main():
         for event in pg.event.get():
             if event.type == pg.QUIT: 
                 return
-        screen.blit(bg_img, [0, 0]) 
+        screen.blit(bg_img, [0, 0])
+
+        if kk_rct.colliderect(bb_rct):  # こうかとんとrectが重なっていたら
+            print("game over")
+            return
 
         key_lst = pg.key.get_pressed()
         sum_mv = [0, 0]
@@ -67,13 +71,14 @@ def main():
         if check_bound(kk_rct) != (True, True):  # どこかはみ出てる
             kk_rct.move_ip(-sum_mv[0], -sum_mv[1])  # 先程の動きをキャンセルする
         screen.blit(kk_img, kk_rct)
-        screen.blit(bb_img, bb_rct)  # 爆弾表示
+
         bb_rct.move_ip(vx, vy)  # 爆弾移動
         yoko, tate = check_bound(bb_rct)
         if not yoko:  # yoko==false
             vx *= -1
         if not tate:  # tate==false
             vy *= -1
+        screen.blit(bb_img, bb_rct)  # 爆弾表示
         pg.display.update()
         tmr += 1
         clock.tick(50)
